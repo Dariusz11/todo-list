@@ -1,9 +1,13 @@
 const Koa = require('koa')
 const logger=require('koa-logger')
 const serve = require('koa-static')
+const favic=require('koa-favicon')
 
 const app = new Koa()
 const port = process.env.PORT || 3000
+
+app.use(favic('./client/favicon.ico'))
+
 
 app.use(logger())
 
