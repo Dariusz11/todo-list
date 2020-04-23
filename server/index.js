@@ -5,6 +5,7 @@ const favic=require('koa-favicon')
 
 const app = new Koa()
 const port = process.env.PORT || 3000
+require('./store').init()
 
 app.use(favic('./client/favicon.ico'))
 
