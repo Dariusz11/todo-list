@@ -1,6 +1,7 @@
 const addTaskForm = document.querySelector('#addTaskForm')
 const addTaskTitle = document.querySelector('#addTaskForm #title')
 const addTaskBtn = document.querySelector('#addTaskBtn')
+const addTaskDesc = document.querySelector('#addTaskForm #desc')
 const addTaskMsg = document.querySelector('#addTaskMsg')
 
 const addTask = async () => {
@@ -8,11 +9,11 @@ const addTask = async () => {
 
   const headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
-  })
+  }) 
 
   const body = JSON.stringify({
     title: data.get('title'),
-    description: data.get('description')
+    description: data.get('desc')
   })
 
   return await fetch('/api/tasks', { method: 'POST', headers, body })
@@ -35,6 +36,7 @@ addTaskForm.addEventListener('submit', (event) => {
         addTaskMsg.textContent = 'Pomyślnie dodano zadanie.'
         addTaskMsg.classList.add('is-success')
         addTaskTitle.value = ''
+        addTaskDesc.value = ''
       })
       .catch((error) => {
         addTaskMsg.textContent = error.message
