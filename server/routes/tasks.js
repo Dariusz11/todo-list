@@ -8,8 +8,19 @@ router.get('/', async (ctx) => {
 })
 
 router.post('/', async (ctx) => {
-  await store.addTask(ctx.request.body)
-  ctx.status = 200
+  
+  if (ctx.request.body.title!='')
+  {
+    await store.addTask(ctx.request.body)
+    ctx.status = 200
+  }
+  else
+  {
+    ctx.status = 400
+  }
+
+
+  
 })
 
 router.delete('/', async (ctx) => {

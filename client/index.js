@@ -30,6 +30,12 @@ addTaskForm.addEventListener('submit', (event) => {
     addTask()
       .then((response) => {
         if (!response.ok) {
+          if (response.status==400)
+          {
+            throw Error('Nie można dodać zadania bez tytułu. Podaj tytuł zadania i spróbuj ponownie.')
+          }
+
+
           throw Error('Wystąpił błąd podczas dodawania zadania. Spróbuj ponownie później.')
         }
 
