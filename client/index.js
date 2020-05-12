@@ -37,17 +37,22 @@ const listTasks = async () => {
           desc.innerHTML = `<p>Brak opisu</p>`
         }
 
+        const timestamp = document.createElement('td')
+        timestamp.innerHTML = `<p>${moment(task.Timestamp).format('DD-MM-YYYY')}</p>`
+
         
 
 
         const row = document.createElement('tr')
         row.appendChild(title)
         row.appendChild(desc)
+        row.appendChild(timestamp)
 
         tasksList.appendChild(row)
       })
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e.message)
       tasksListMsg.textContent = 'Wystąpił błąd podczas pobierania listy zadań. Spróbuj ponownie później.'
       tasksListMsg.classList.add('is-danger')
       tasksListMsg.classList.remove('is-hidden')
