@@ -14,7 +14,7 @@ const loggingOperation = new LoggingFilter()
 const uuid = require('uuid')
 
 
-const service = storage.createTableService().withFilter(loggingOperation).withFilter(retryOperation)
+const service = storage.createTableService()//.withFilter(loggingOperation).withFilter(retryOperation)
 
 const table = 'tasks'
 
@@ -32,6 +32,19 @@ const table = 'tasks'
 //     })
 //   })
 // )
+const listTasks = async () => (
+  new Promise((resolve, reject) => {
+    const query = new storage.TableQuery()
+      .select(['title'])
+      .where('PartitionKey eq ?', 'task')
+
+    service.queryEntities(table, query, null, (error, result) => {
+      !error ? resolve(result.entries.map((entry) => ({
+        title: entry.title._
+      }))) : reject()
+    })
+  })
+)
 
 const addTask = async ({ title, description }) => (
   new Promise((resolve, reject) => {
@@ -69,5 +82,5 @@ const init = async () => (
 )
 
 module.exports = {
-  init,addTask
+  init,addTask,listTasks
 }
